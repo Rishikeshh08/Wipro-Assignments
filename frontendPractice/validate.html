@@ -1,0 +1,125 @@
+<!-- 
+Que:
+//Activity
+
+/*Suppose you are creating a user registration form for a website , the form should capture
+-UserName
+- Age
+isSubscribe and you need to check whether the provided data matches the expected types
+
+.ValIdate.User Registration Data Types
+
+Answer: 
+ // sample user data
+let userName = " Niti Dwivedi";
+let age = "34";
+let isSubscribed = "true";
+let number1 ="40";
+let number2 = "30";
+// for the validation
+function validateForm(userName , age , isSubscribed)
+{
+let userNameType = typeof userName;
+let ageType = typeof age;
+let isSubscribedType = typeof isSubscribed;
+
+console.log("UserName :" + userName + "Data Type "  , userNameType);
+console.log("Age  :" + age+ "Data Type "  , ageType);
+console.log("isSubsribed :" + isSubscribed + "Data Type "  , isSubscribedType);
+
+//conversion
+age = Number(age);
+isSubscribed = isSubscribed === "true";
+
+console.log("Age  :" + age+ "After conversion the Data Type is  "  , typeof age);
+console.log("IsSubscribed :" +isSubscribed + "Data Type "  , typeof isSubscribed);
+}
+validateForm(userName , age , isSubscribed) -->
+
+
+<!-- 
+2.
+document.getElementByName("myForm").addEventListener('submit' , function(event){
+
+let userName = document.getElementById('username').value;
+let userAge = document.getElementById('age').value;
+
+alert('Form submitter! ' + userName);
+
+});
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <form id="myForm">
+    <label for="username"> username</label>
+    <input type="text" id="username" name=" username"> 
+  <br>
+     <label for="age"> Age</label>
+    <input type="text" id="age" name=" age">
+    <br> 
+    <button type="submit">SUBMIT</button>
+</form> 
+<script src="form2validate.js"></script>
+</body>
+</html> -->
+
+<!-- 
+3.
+//add event listener  will capture the form submission event triggered by the submit button
+document.getElementById("myForm").addEventListener('submit' , function(event){
+event.preventDefault(); // prevents default form submission (a page reload)
+
+let userName = document.getElementById('username').value;
+let userAge = document.getElementById('age').value;
+
+if(userName == "" && age == "")
+    alert("Username and age window can not be blank");
+  
+console.log(userName);
+console.log(userAge);
+alert('Form submitter! ' + userName);
+
+}); -->
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Validation</title>
+    <style>
+
+    </style>
+</head>
+<body>
+    <form>
+        <!-- <label for="username">Name: </label>
+        <input type="text" id="username" class="name">
+        <label for="no">Phone no: </label>
+        <input type="tel" id="no" class="number">
+        <input type="submit"> -->
+    </form>
+        
+    <script>
+        let name = "Rishi";
+        let age = 22;
+        let phone = "34234234"
+
+        console.log(typeof name);
+        console.log(typeof age)
+        console.log(typeof phone);
+
+        
+
+    </script>
+</body>
+</html>

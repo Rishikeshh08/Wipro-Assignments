@@ -1,0 +1,98 @@
+package com.rishi.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.rishi.security.JwtFilter;
+
+@Configuration
+public class SecurityConfig {
+	
+	@Autowired
+	private JwtFilter jwtFilter;
+	
+	@Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+	
+	@Bean
+	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	    http
+	        .csrf(csrf -> csrf.disable())
+	        .authorizeHttpRequests(auth -> auth
+	            .requestMatchers("/", "/register", "/login", "/auth/**", "/css/**", "/js/**").permitAll()
+	            .requestMatchers("/order/api/**").authenticated()
+	            .anyRequest().permitAll()
+	        )
+	        .exceptionHandling(ex -> ex
+        	    .authenticationEntryPoint((req, res, ex2) -> {
+        	        throw new AccessDeniedException("JWT token is missing");
+        	    })
+        	)
+	        .sessionManagement(session -> session
+	            .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	        )
+	        .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+
+	    return http.build();
+	}
+}
+
+
+// .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+//Add our JWT filter BEFORE UsernamePasswordAuthenticationFilter
+
+//enables form-based login authentication with my own custom login page. - removed it as its redirecting to login to every req, /order/api/all - should show access denied 
+//.formLogin(form -> form.loginPage("/").permitAll());
+
+//.authenticationEntryPoint(...)
+//If user not logged in → throw Access Denied instead of redirecting to login page.
+
+//.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+//No session, every request must have JWT.
+
+
+
+
+
+
+
+2025-12-06T22:21:55.047+05:30[0;39m [31mERROR[0;39m [35m2488[0;39m [2m--- [pizza-user-service] [nio-8081-exec-2] [0;39m[36mo.a.c.c.C.[.[.[/].[dispatcherServlet]   [0;39m [2m:[0;39m Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception
+
+org.springframework.security.access.AccessDeniedException: JWT token is missing
+	at com.rishi.config.SecurityConfig.lambda$3(SecurityConfig.java:38) ~[classes/:na]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.sendStartAuthentication(ExceptionTranslationFilter.java:219) ~[spring-security-web-6.4.13.jar:6.4.13]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.handleAccessDeniedException(ExceptionTranslationFilter.java:197) ~[spring-security-web-6.4.13.jar:6.4.13]
+	
+
+
+
+
+
+
+
+
+
+
+2025-12-06T23:01:08.017+05:30[0;39m [33m WARN[0;39m [35m21260[0;39m [2m--- [pizza-user-service] [nio-8081-exec-5] [0;39m[36m.m.m.a.ExceptionHandlerExceptionResolver[0;39m [2m:[0;39m Failure in @ExceptionHandler com.rishi.exception.GlobalExceptionHandler#handleGeneralException(Exception, HttpServletRequest)
+
+org.springframework.http.converter.HttpMessageNotWritableException: No converter for [class com.rishi.exception.ApiErrorResponse] with preset Content-Type 'application/json;charset=ISO-8859-1'
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:365) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:208) ~[spring-webmvc-6.2.14.jar:6.2.14]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:78) ~[spring-web-6.2.14.jar:6.2.14]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:136) ~[spring-webmvc-6.2.14.jar:6.2.14]
+
+
+
+
+
+

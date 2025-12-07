@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        function fetchData(){
+            const lat = 39.099724;
+            const lon = 94.578331;
+            const time = 1643803200;
+            const API_key = "d8bc0d4bc2d0e13a2e893eeab06ef702"
+            fetch(`https://api.openweathermap.org/data/3.0/onecall/timemachine?lat={lat}&lon={lon}&dt={time}&appid={API_key}`)
+            .then(response => response.json())
+            .then(data => console.log("DATA: " , data));
+        }
+        fetchData();
+    </script>
+</body>
+</html>

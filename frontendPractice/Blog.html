@@ -1,0 +1,41 @@
+<!--Design an HTML page for a single blog post. The page should include the following elements:
+	- A heading for the post title.
+	- A subheading for the post author and publication date.
+	- A main content section for the post body.
+	- A section for comments where users can add their name and comment. Include a "Submit" button.
+	- A sidebar with links to previous and next blog posts.-->
+
+<html>
+    <head>
+        <title>Blogs</title>
+        <link rel="stylesheet" href="Blog.css">
+    </head>
+    <body>
+        <div class="wrapper">
+            <h1>Post1 Title</h1>
+            <div>
+                <h4>Post Author: Rishikesh Mandlik</h4>
+                <h4>Publication Date: 8/11/25</h4>
+            </div>
+                
+            <p class="content">A paragraph is a distinct section of writing, typically consisting of several sentences, that focuses on a single idea or topic. It is organized around a central topic sentence, supported by body sentences with details and examples, and often concludes with a sentence that summarizes the point or transitions to the next paragraph. Paragraphs help structure and organize written work, making it easier for readers to follow the author's thoughts. </p>
+
+            <form class="form">
+                <div>
+                    <label for="name" >Name: </label>
+                    <input type="text" id="name">
+                </div>
+                <div class="comment-field">
+                    <label for="Comments" >Comments: </label>
+                    <textarea class="comment" id="Comments" placeholder="Write Your Comment"></textarea>
+                </div>
+                <input type="submit">
+            </form>
+
+            <div class="Navigation-bar">
+                <input type="button" value="Previous">
+                <input type="button" value="Next">
+            </div>
+        </div>
+    </body>
+</html>

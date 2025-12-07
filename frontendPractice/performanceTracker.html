@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // Activity :  Create a Employee Performance Tracker by calculating Total No. of Years of all Employees ,
+        //  filter grade wise performance and increment the bonus by 30% grade wise 
+
+        const employees = [
+            {grade: "A", bonus: 12000},
+            {grade: "B", bonus: 12000},
+            {grade: "C", bonus: 12000},
+            {grade: "A", bonus: 12000}
+
+        ]
+        function totalNumberofYears(employees){
+            let total = employees.reduce((sum, ele) => sum + ele.bonus, 0);
+            return total;
+        }
+        function filterEmployeesGradeWise(employees){
+            
+            let newData2 = employees.filter((emp) => emp.grade === "A")
+            let mapped = newData2.map((emp) => {
+                return {
+                            ...emp,
+                            bonus : emp.bonus + (emp.bonus * 0.3)
+                }
+            });
+            
+            console.log("old: ",employees);
+            
+            console.log("new : " ,newData2);
+            console.log("new : " ,mapped);
+            
+
+        }
+        // filterEmployeesGradeWise(employees);
+        function myFun(employees){
+                let employeeData = employees.map((emp) => {
+                    return {
+                        ...emp,
+                        bonus : (emp.grade === "A") ? emp.bonus + emp.bonus * 0.3 : emp.bonus
+                    }
+                })
+                console.log(employeeData);
+        }
+        myFun(employees);
+
+         
+    </script>
+</body>
+</html>
