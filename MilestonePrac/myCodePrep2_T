@@ -1,0 +1,168 @@
+import java.util.Scanner;
+
+public class SubstringReplacementAndArrayIndexSum {
+
+    // case 1
+    public static String replaceSecondChar(String s){
+        StringBuilder sb = new StringBuilder();
+        String words[] = s.split("\\s+");
+        for(String word : words){  //words
+            int count = 0;
+            for(int i = 0; i <= word.length() - 1; i++){ // word
+                count++;
+                if(count % 2 == 0){
+                    sb.append("x");
+                }
+                else{
+                    sb.append(word.charAt(i));
+                }
+            }
+            //word ready
+            sb.append(" ");
+        }
+        // sentence ready with space at last
+        return sb.toString().trim();
+
+    }
+
+    //case 2
+    public static int findSumOfIndex(int arr[], int search){
+        int sum = 0;
+        for(int i = 0; i < arr.length; i++){
+            if(arr[i] == search){
+                sum += i;
+            }
+        }
+        return sum;
+    }
+
+    // case 3
+    public static String replaceVowel(String s){
+        StringBuilder sb = new StringBuilder(s);
+        for(int i = 0; i < s.length(); i++){
+            char ch = s.charAt(i);
+            if("AEIOU".indexOf(ch) != -1){  // if AEIOU
+                sb.setCharAt(i, Character.toLowerCase(ch));
+            }
+        }
+        // sb ready
+        return sb.toString();
+    }
+
+    
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        //String
+        System.out.print("Enter a string: ");
+        String string = sc.nextLine();
+
+        //size of arr
+        System.out.print("Enter the size of the array: ");
+        int sizeOfArray = sc.nextInt();
+        sc.nextLine(); // enter
+
+        //ele of arr
+        System.out.println("Enter the elements of the array: ");
+        String arrayElements = sc.nextLine();
+        String[] elements = arrayElements.split("\\s+");
+
+        int intElements[] = new int[elements.length];
+        // not asked in que.
+        try{
+            for(int i = 0; i <= elements.length - 1; i++){
+                intElements[i] = Integer.parseInt(elements[i]);
+            }
+        }
+        catch(NumberFormatException e){
+            System.out.println("invalid input while entering the array");  // fill it
+
+        }
+        // int arr ready - intElements[]
+
+
+        //int search
+        System.out.println("Enter the element to find: ");
+        int search = sc.nextInt();
+        sc.nextLine(); // enter 
+
+
+        //menu
+        //handle invalid menu choice - continue
+        boolean success = true;
+        while(success){
+            System.out.println("Choose an option:");
+            System.out.println("1. Replace every second character in each word of a string with 'x'");
+            System.out.println("2. Find the sum of the index positions of all occurrences of a given element in an array");
+            System.out.println("3. Replace every vowel in the string with its lowercase counterpart");
+            System.out.println("4. Return the modified string and the sum of index positions of the element");
+            System.out.println("5. Return the string in uppercase if the sum is greater than a threshold value");
+            System.out.println("0. Exit");
+            
+            if(!sc.hasNextInt()){
+                sc.nextLine();
+                System.out.println("invalid value while entering choice"); // not mentioned in que
+                continue;
+            }
+
+            int choice = sc.nextInt();
+            sc.nextLine(); // enter 
+
+            // str, size, arr, search
+            switch(choice){
+                case 1:
+                    // string
+                    String replacedString = replaceSecondChar(string);
+                    System.out.println("String with replaced characters: " + replacedString);
+
+                    break;
+
+                case 2:
+                    // intElements[], search
+                    int sum = findSumOfIndex(intElements, search);
+                    System.out.println("Sum of index positions: " + sum);
+                    break;
+
+                case 3:
+                    // string
+                    String replaceStringOfVowels = replaceVowel(string);
+                    System.out.println("String with vowels replaced: " + replaceStringOfVowels);
+                    break;
+
+                case 4:
+                    // modified str case 1, case 2
+                    String replacedStringCase4 = replaceSecondChar(string);
+                    int sumCase4 = findSumOfIndex(intElements, search);
+                    System.out.println("Modified string: " + replacedStringCase4);
+                    System.out.println("Sum of index positions of the element: " + sumCase4);
+                    break;
+
+                case 5:
+                    String replacedStringCase5 = replaceSecondChar(string);
+                    int sumCase5 = findSumOfIndex(intElements, search);
+                    if(sumCase5 > 5){
+                        System.out.println("Final string: " + replacedStringCase5.toUpperCase());
+                    }else{
+                        System.out.println("Final string: " + replacedStringCase5);
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Exiting...");
+                    success = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid option, please try again.");
+                    break;
+            }
+
+
+
+
+        }
+
+
+    }
+}
